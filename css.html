@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>css3</title>
+</head>
+<style>
+@font-face {
+	font-family: myFirstFont;
+	src: url(https://fonts.gstatic.com/s/lato/v14/S6uyw4BMUTPHjx4wXg.woff2);
+}
+* {
+	font-family: myFirstFont;
+}
+.button {
+	border-radius: 4px;
+	border: none;
+	outline: none;
+	text-align: center;
+	vertical-align:middle;
+	cursor: pointer;
+	background-color: #f4511e;
+	color: #FFFFFF;
+	font-size: 28px;
+	padding: 20px;
+	width: 200px;
+	margin: 5px;
+}
+.button:after {
+	content: '';
+	background-color: #FFFFFF;
+	position: absolute;
+	left: 0;
+	top: 0;
+	opacity: 0;
+	padding: 0 150px;
+	height: 100px;
+	transition: all 2s;
+}
+.button:active:after {
+	padding: 0;
+	opacity: 1;
+	transition: 0s;
+}
+.button span {
+	cursor: pointer;
+	position: relative;
+	transition: 0.5s;
+}
+.button span:after {
+	content: '»';
+	position: absolute;
+	opacity: 0;
+	top: 0;
+	right: -20px;
+	transition: 0.5s;
+}
+.button:hover span {
+	padding-right: 25px;
+}
+.button:hover span:after {
+	opacity: 1;
+	right: 0;
+}
+.aaa {
+	width: 300px;
+	height: 150px;
+	background-color: #ffcc11;
+	/**
+	 * 偏移、旋转、大小缩放、倾斜 不能同时使用
+	 */
+	/* 偏移 X Y 原先占位不改变 */
+	/*transform: translate(50px, 200px);*/
+	/* 旋转角度 顺时针 */
+	/*transform: rotate(20deg);*/
+	/* 按百分比更改大小 X Y */
+	/*transform: scale(1, 0.5);*/
+	/* 倾斜 Y X 中心点顺时针 */
+	/*transform: skew(0deg, 20deg);*/
+
+	/**
+	 * 混用 matrix(scaleX, skewY, skewX, scaleY, translateX, translateY)
+	 */
+	transform: matrix(1,0.8,0,1,100,200);
+}
+.bbb {
+	width: 300px;
+	height: 150px;
+	background-color: blue;
+	/*transform: rotateX(30deg);*/
+	/*transform: rotateY(60deg);*/
+	/*transform: matrix3d(1,0.66,0.86,1,1,1,1,1,1,1,1,1,1,1,1,1);*/
+	animation: animate 5s;
+	transition: width 2s, height 2s, transform 2s;
+}
+@keyframes animate {
+	0% {
+		background-color: yellow;
+		transform: rotate(0deg) matrix(1,0,0,1,0,0);
+	}
+	25% {
+		background-color: green;
+		transform: rotate(90deg) matrix(1,0,0,1,50,30);
+	}
+	50% {
+		background-color: orange;
+		transform: rotate(180deg) matrix(1,0,0,1,200,80);
+	}
+	75% {
+		background-color: red;
+		transform: rotate(270deg) matrix(1,0,0,1,80,200);
+	}
+	100% {
+		background-color: blue;
+		transform: rotate(360deg) matrix(1,0,0,1,0,0);
+	}
+}
+.bbb:hover {
+	width: 150px;
+	height: 75px;
+	transform: matrix(1,0.8,0,1,100,200);
+}
+</style>
+<body>
+	<button class="button"><span>Hover </span></button>
+
+	<div class="aaa"></div>
+	<div class="bbb"></div>
+</body>
+</html>

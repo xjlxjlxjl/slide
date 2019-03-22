@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<style>
+ul {
+	list-style: none;
+	margin: 200px;
+}
+.ele {
+	width: 100%;
+	height: 40px;
+	border: 1px solid #999;
+	background: #EA6E59;
+	margin-top: 2px;
+	border-radius: 10px;
+	padding-left: 10px;
+	color: white;
+	cursor: move;
+}
+</style>
+<body>
+	<ul id="container">
+		<li class="ele" draggable="true">1</li>
+		<li class="ele" draggable="true">2</li>
+		<li class="ele" draggable="true">3</li>
+		<li class="ele" draggable="true">4</li>
+	</ul>
+<script>
+	var cont = document.querySelector("#container");
+	var draging = null;
+	//事件委托，将li的事件委托给ul
+	cont.ondragstart = function(event) {
+		//firefox设置了setData后元素才能拖动
+		event.dataTransfer.setData("te", event.target.innerText);
+		//不能使用text，firefox会打开新tab
+		draging = event.target;
+	}
+	cont.ondragover = function(event) {
+		event.preventDefault();
+		var target = event.target;
+
+		//判读是LI 并且不是自己
+		if (target.nodeName === "LI" && target !== draging) {
+			if (_index(draging) < _index(target)) 
+				target.parentNode.insertBefore(draging,target.nextSibling);
+			else 
+				target.parentNode.insertBefore(draging, target);
+			
+		}
+	}
+	//获取元素在父元素中的index
+	function _index(el) {
+		var index = 0;
+		if (!el || !el.parentNode) return -1;
+		
+		while (el && (el = el.previousElementSibling)) {
+			index++;
+		}
+		return index;
+	}
+</script>
+</body>
+</html>
